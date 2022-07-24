@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Initial docstring. """
 import argparse
 from glob import glob
 import os
@@ -11,6 +12,9 @@ parser.add_argument("example", metavar="01", type=int, nargs="?",
 
 
 def get_available_examples() -> list:
+    """ Find all available examples on examples folder and returns as a
+        list.
+    """
     examples_path = glob("../examples/*_*.c", recursive=False)
     examples = [os.path.basename(example) for example in examples_path]
     print(f"Examples available: {len(examples)}")
