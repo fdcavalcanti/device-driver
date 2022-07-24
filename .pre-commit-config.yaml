@@ -1,0 +1,10 @@
+fail_fast: false
+repos:
+  - repo: https://github.com/pocc/pre-commit-hooks
+    rev: v1.3.5
+    hooks:
+      - id: uncrustify
+        args: [--no-backup, --set=indent_with_tabs=0]
+      - id: cppcheck
+      - id: cpplint
+        args: ["--filter=-legal/copyright"]
