@@ -1,0 +1,23 @@
+# git files that we don't want to ignore even it they are dot-files
+!*.c
+!*.h
+!.gitignore
+!.gitmodules
+!.pre-commit-config.yaml
+!.mailmap
+
+# git files to be ignored
+.*
+*.o
+*.o.*
+*.s
+*.ko
+*.mod
+*.mod.c
+*.patch
+*.gcno
+*.dwo
+modules.order
+modules.builtin
+Module.symvers
+defaults.cfg
