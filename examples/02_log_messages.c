@@ -42,4 +42,4 @@ module_exit(devd_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Filipe do Ó Cavalcanti");
-MODULE_DESCRIPTION("Device driver loading and removing.");
+MODULE_DESCRIPTION("Kernel messages and log levels.");
