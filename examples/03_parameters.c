@@ -6,6 +6,10 @@
  *  After compiling, call insmod this way:
  *  $ sudo insmod 03_parameters.ko test_num=10
  *
+ *  After compiling, run the following to obtain 'help' information of the
+ *  module:
+ *  $ modinfo 02_log_messages.ko
+ *
  *  @author Filipe do Ó Cavalcanti
  */
 
