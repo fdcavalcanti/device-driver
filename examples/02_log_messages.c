@@ -20,7 +20,7 @@ static void kernel_messages(void) {
   pr_debug("This is a debug message: debug-level messages.\n");
   pr_info("This is an info message: informational.\n");
   pr_notice("This is a notice message: normal but significant condition.\n");
-  pr_warning("This is an warning message: warning conditions.\n");
+  pr_warn("This is an warning message: warning conditions.\n");
   pr_err("This is an error message: error conditions.\n");
   pr_crit("This is a critical message: critical conditions.\n");
   pr_alert("This is an alert message: action must be taken immediately.\n");
