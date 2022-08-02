@@ -1,5 +1,9 @@
-/** @file
+/** @file 04_char_dev_dynamic.c
  *  @brief
+ *  This example shows how to create a character device and make it appear
+ *  on /dev/. It can be the entry point for many applications and allows
+ *  interactions of user space and kernel space.
+ *
  *  Regarding alloc_chrdev_region and register_chrdev_region:
  *  The first will automatically select a major and minor value based on a
  *  range. The second will register a specific value for major and minor.
@@ -17,9 +21,6 @@ static struct cdev example_cdev;
 static struct class *cdev_class;
 dev_t dev_number;  // holds the MAJOR and MINOR values.
 
-// http://www.makelinux.net/ldd3/chp-3-sect-4.shtml
-// https://stackoverflow.com/questions/41320939/where-do-char-device-appear-after-cdev-add-registers-successfully-with-major-o
-
 /* The file operations struct is necessary for character device creation.
  * For now, it is simplified.
  */
@@ -28,8 +29,9 @@ static struct file_operations fops = {
 };
 
 static int __init devd_init(void) {
-  // The first step is to allocate a region for the character device and
-  // print the values allocated on completion.
+  /* The first step is to allocate a region for the character device and
+   * print the values allocated on completion.
+   */
   if (alloc_chrdev_region(&dev_number, 0, 1, DEV_NAME) < 0) {
     pr_err("Failed to allocate char device.\n");
     return 0;
@@ -37,14 +39,19 @@ static int __init devd_init(void) {
     pr_info("Major: %d | Minor: %d\n", MAJOR(dev_number), MINOR(dev_number));
   }
 
-  // Now the chracter device must be initialized in the region allocated.
+  /* Now the chracter device must be initialized in the region allocated. */
   cdev_init(&example_cdev, &fops);
   cdev_add(&example_cdev, dev_number, 1);
 
-  // Create the class for this device
-  cdev_class = class_create(THIS_MODULE, "example_class");
+  /* Create the class for this device.
+   * This will make "example_class" appear under /sys/class/
+   */
+  cdev_class = class_create(THIS_MODULE, "my_class");
 
-  // Now the device file node can be created: "my_cdev" will appear on /dev/
+  /* Now the device file node can be created.
+   * On device creation, "my_cdev" will appear on /dev/.
+   * This allows interactions of the kernel module with the user space.
+   */
   device_create(cdev_class, NULL, dev_number, NULL, DEV_NAME);
   pr_info("Example driver loaded\n");
 
@@ -64,4 +71,4 @@ module_exit(devd_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Filipe do Ó Cavalcanti");
-MODULE_DESCRIPTION("Device driver loading and removing.");
+MODULE_DESCRIPTION("Character device cration (dynamic).");
